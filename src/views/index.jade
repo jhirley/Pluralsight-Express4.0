@@ -1,0 +1,33 @@
+-var list = ['Hello','Hello']
+html
+    head   
+        //- bower:css
+        link(rel='stylesheet', href='/lib/bootstrap/dist/css/bootstrap.css')
+        link(rel='stylesheet', href='/lib/font-awesome/css/font-awesome.min.css')
+        //- endbower
+        //- bower:js
+        script(src='/lib/jquery/dist/jquery.js')
+        script(src='/lib/bootstrap/dist/js/bootstrap.js')
+        //- endbower
+        //- inject:css
+        
+        
+        link(rel="stylesheet", href="/css/styles.css")
+        
+        
+        //- endinject
+        //- inject:js
+        
+        //- endinject
+        title myapp
+    body(class='myClass')
+        h1(id='myId') myapp
+        p
+        h3 sub heading
+        ul
+            each val in ['one','2','trese']
+                li= val
+            each val in list
+                li= val
+            each val in otherlist
+                li= val

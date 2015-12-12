@@ -1,0 +1,224 @@
+/*jf gulp
+npm install --save-dev gulp-check-unused-css gulp-util gulp-imagemin gulp-inline-css gulp-inline-source gulp-istanbul imagemin-jpeg-recompress gulp-jshint gulp-mocha gulp-plumber imagemin-pngquant gulp-rename gulp gulp-minify-css gulp-minify-html gulp-uglify gulp-notify gulp-cache gulp-livereload
+*/
+'use strict';
+
+var cache = require('gulp-cache')
+//    ,checkCSS = require( 'gulp-check-unused-css')
+//    ,gutil   =   require('gulp-util')
+//    ,imagemin = require('gulp-imagemin')
+//    ,inlineCss = require('gulp-inline-css')
+//    ,inlinesource = require('gulp-inline-source')
+//    ,istanbul =  require('gulp-istanbul')
+//    ,jpegRecompress = require('imagemin-jpeg-recompress')
+    ,jshint = require('gulp-jshint')
+//    ,livereload = require('gulp-livereload')
+//    ,mocha   =   require('gulp-mocha')
+//    ,notify = require('gulp-notify')
+//    ,plumber = require('gulp-plumber')
+//    ,pngquant = require('imagemin-pngquant')
+//    ,rename = require('gulp-rename')
+    ,gulp = require('gulp')
+//    ,minifyCSS = require('gulp-minify-css')
+//    ,minifyHTML = require('gulp-minify-html')
+//    ,uglify= require('gulp-uglify')
+;
+
+///
+var dest='build';
+var liveReloadPort = 8085;
+
+
+//jf script jshint
+/*
+gulp.task('jshint', function() {
+    gulp.src(['**/*.js','!bower_components/**/*.js','!node_modules/**/*.js','!gulpfile.js','!build/**'])
+	//.pipe(plumber())
+        .pipe(jshint())
+        .pipe(jshint.reporter('default'));
+});
+*/
+
+/*
+//jf  minify javascript
+gulp.task('scripts',function(){
+	gulp.src(['**/*.js','!bower_components/**/*.js','!node_modules/**/*.js','!gulpfile.js','!build/**'])
+		.pipe(plumber())
+        .pipe(uglify())
+        .pipe(rename({suffix: '.min'}))
+        .pipe(gulp.dest(dest+'/'))
+        .pipe(notify({ message: 'Scripts task complete' }));
+});
+*/
+    
+/*    
+gulp.task('html',function(){
+	var opts = {comments:true,spare:true};
+
+    gulp.src(['**/*.html','!bower_components/**','!node_modules/**','!build/**'])
+        .pipe(plumber())
+		.pipe(minifyHTML(opts))
+        .pipe(gulp.dest(dest+'/'))
+        .pipe(notify({ message: 'HTML task complete' }));
+
+});
+*/
+    
+/*
+gulp.task('css',function(){
+	gulp.src(['**/*.css','!bower_components/**','!node_modules/**','!build/**'])
+        .pipe(plumber())
+        .pipe(minifyCSS({keepBreaks:true}))
+        .pipe(gulp.dest(dest+'/'))
+        .pipe(notify({ message: 'css task complete' }));
+
+});
+*/
+    
+/*    
+gulp.task('checkcss',function(){
+    gulp.src([ 'css/*.css', '*.html' ])
+    .pipe(plumber())
+    .pipe( checkCSS() );
+});
+*/
+
+/*    
+gulp.task('inlinecss', function() {
+
+    var htmlopts = {comments:true,spare:true};
+
+
+    gulp.src(['**/*.html','!build/**','!node_modules/**'])
+        .pipe(inlineCss({
+                applyLinkTags: true,
+                removeStyleTags: true,
+                removeLinkTags: true
+        }))
+        .pipe(gulp.dest(dest+'/'));
+});
+*/
+    
+/*    
+gulp.task('inlinesource', function () {
+    var options = { compress: false };
+    var opts = {comments:true,spare:true};
+
+    return gulp.src(['**/*.html','!build/**','!node_modules/**'])
+        .pipe(plumber())
+        .pipe(inlinesource(options))
+        .pipe(minifyCSS({keepBreaks:true}))  // check the css
+        .pipe(minifyHTML(opts))
+        .pipe(gulp.dest(dest+'/'));
+});
+
+*/
+
+    
+/*    
+gulp.task('gulp-inline-assets', function () {
+    return gulp.src('**/*.css')
+        .pipe(inlineAssets())
+        .pipe(gulp.dest(dest+'/'));
+});
+
+*/
+
+
+/*
+gulp.task('images', function () {
+
+    gulp.src(['**/*.jpg','**/*.gif','**/*.png','!build/**','!node_modules/**','!bower_components/**'])
+        .pipe(cache(imagemin({
+            optimizationLevel: 20,
+            interlaced: true,
+            progressive: true,
+            svgoPlugins: [{removeViewBox: false}],
+            use: [pngquant()]
+        })))
+        .pipe(gulp.dest(dest))
+        .pipe(notify({ message: 'Images task complete' }));
+
+//jf if we get bad jpg ,  hit it with a little of this
+//jf     gulp.src(['**/*.jpg','!build/**','!node_modules/**','!bower_components/**'])
+//jf        .pipe(jpegRecompress({ loops: 20 , quality: 'low' })())
+//jf        .pipe(gulp.dest(dest));
+});
+
+*/
+
+
+/*
+gulp.task('mocha', function(){
+    return gulp.src(['test/*.js'], {read:false})
+    .pipe(mocha({reporter:'list'}))
+    .on('error', gutil.log);
+});
+*/
+
+/*
+gulp.task('watch-mocha', function(){
+    gulp.run('mocha');
+    gulp.watch(['./**/*.js','test/**/*.js'], ['istanbul']);
+});
+
+*/
+
+
+/*
+gulp.task('istanbul', function (cb) {
+  gulp.src(['./*.js'])
+    .pipe(istanbul()) // Covering files
+    .pipe(istanbul.hookRequire()) // Force `require` to return covered files
+    .on('finish', function () {
+      gulp.src(['test/*.js'])
+        .pipe(mocha())
+        .pipe(istanbul.writeReports()) // Creating the reports after tests runned
+        .pipe(istanbul.enforceThresholds({ thresholds: { global: 90 } })) // Enforce a coverage of at least 90%
+        .on('end', cb);
+    });
+});
+*/
+
+/*
+gulp.task('livereload', function() {
+
+
+});
+*/
+
+//jf default
+
+/*
+gulp.task('default',['jshint','scripts','html','css','images']);
+*/
+
+/*
+gulp.task('watch', function() {
+
+// Create LiveReload server
+    livereload.listen(liveReloadPort, function (err) {
+        console.log("listening on "+liveReloadPort);
+        if (err) {
+        return console.log(err);
+        }
+
+  // Watch .css files
+      gulp.watch(['**/*.css','!build/**','!node_modules/**','!bower_components/**'], ['styles']);
+
+  // Watch .js files
+      gulp.watch(['**/*.js','!build/**','!node_modules/**','!bower_components/**'], ['jshint','scripts']);
+
+  // Watch .html files
+      gulp.watch(['**/*.html','!build/**','!node_modules/**','!bower_components/**'], ['html']);
+
+  // Watch image files
+      gulp.watch(['**/*','!build/**','!node_modules/**','!bower_components/**'], ['images']);
+
+
+  // Watch any files in dist/, reload on change
+        gulp.watch([dest+'/**/*', "!"+dest+"/node_modules/**","!"+dest+"/bower_components/**"]).on('change', livereload.changed);
+
+    });
+});
+*/
