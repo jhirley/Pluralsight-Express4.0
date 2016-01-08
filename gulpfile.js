@@ -38,7 +38,7 @@ gulp.task('inject', function () {
         .pipe(gulp.dest('./src/views'));
 });
 
-gulp.task('nodemon', ['style', 'inject'], function () {
+gulp.task('nodemon', ['style'], function () {
     var options = {
         script: 'app.js',
         delayTime: 1,
@@ -53,7 +53,7 @@ gulp.task('nodemon', ['style', 'inject'], function () {
             console.log('Restarting .....');
             console.log('File changed on restart:\n' + ev);
         })
-        .on('start', function (ev) {console.log('Starting .....');})
+        .on('start', ['inject','style'],function (ev) {console.log('Starting .....');})
         .on('crash', function (ev) {console.log('CRASH  .....');})
         .on('exit', function (ev) {console.log('Clean exit .....');})
     ;
